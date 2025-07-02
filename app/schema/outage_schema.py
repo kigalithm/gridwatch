@@ -55,3 +55,7 @@ class TwitterConfig(BaseModel):
     consumer_secret: str
     access_token: str
     access_token_secret: str
+
+
+class OutageOut(OutageCreate):
+    pass

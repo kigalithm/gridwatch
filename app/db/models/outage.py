@@ -1,5 +1,5 @@
 import uuid
-from sqlalchemy import Column, String, JSON, ARRAY, Enum as SqlEnum
+from sqlalchemy import Column, String, ARRAY, Float, Enum as SqlEnum
 from sqlalchemy.dialects.postgresql import UUID
 from pgvector.sqlalchemy import Vector
 from sqlalchemy.orm import relationship
@@ -20,7 +20,7 @@ class Outage:
     estimated_duration = Column(String, nullable=True)
     cause = Column(String, nullable=True)
     tweet_text = Column(String, nullable=False)
-    confidence = Column(String, nullable=False)
+    confidence = Column(Float, nullable=False)
     embedding = Column(Vector(384), nullable=False)
     created_at = Column(
         DateTime(timezone=True),
