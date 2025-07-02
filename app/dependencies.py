@@ -1,8 +1,15 @@
 import asyncio, os
 from concurrent.futures import ThreadPoolExecutor
 from sentence_transformers import SentenceTransformer
+from app.twitter.twitter_client import TwitterClient
+from app.schema.outage_schema import (
+    TwitterConfig,
+)
 
 executor = ThreadPoolExecutor()
+
+
+twitter_client = TwitterClient(config=TwitterConfig())
 
 
 # Load the pre-cached model

@@ -2,9 +2,8 @@ import os
 import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-
-
 from app.core.settings import Settings
+from app.routes import outage_routes
 
 
 settings = Settings()
@@ -24,6 +23,12 @@ app.add_middleware(
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
+)
+
+
+app.include_router(
+    outage_routes.outage_route,
+    prefix=settings.API_VERSION_STR + "/outage",
 )
 
 
