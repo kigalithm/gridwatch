@@ -8,7 +8,7 @@ from fastapi import APIRouter, HTTPException
 twitter_route = APIRouter(tags=["Twitter"])
 
 
-@twitter_route.post("/config/twitter")
+@twitter_route.post("/config")
 async def configure_twitter(config: TwitterConfig):
     """Configure Twitter API credentials"""
     global twitter_client
