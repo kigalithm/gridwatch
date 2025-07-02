@@ -9,7 +9,7 @@ from app.schema.outage_schema import (
 executor = ThreadPoolExecutor()
 
 
-twitter_client = TwitterClient(config=TwitterConfig())
+twitter_client = TwitterClient(config=TwitterConfig)
 
 
 # Load the pre-cached model

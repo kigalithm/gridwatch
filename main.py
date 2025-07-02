@@ -3,7 +3,7 @@ import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.core.settings import Settings
-from app.routes import outage_routes
+from app.routes import outage_routes, twitter_routes
 
 
 settings = Settings()
@@ -31,6 +31,11 @@ app.include_router(
     prefix=settings.API_VERSION_STR + "/outage",
 )
 
+
+app.include_router(
+    twitter_routes.outage_route,
+    prefix=settings.API_VERSION_STR + "/outage",
+)
 
 if __name__ == "__main__":
     uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
