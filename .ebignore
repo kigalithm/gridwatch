@@ -1,0 +1,13 @@
+.venv/
+.git/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.env
+*.sqlite3
+*.log
+
+.ssh/
+*.pem
+id_*

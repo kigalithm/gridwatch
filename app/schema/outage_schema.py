@@ -32,6 +32,15 @@ class Outage(BaseModel):
     confidence: float = Field(ge=0.0, le=1.0)
 
 
+class OutageCreate(BaseModel):
+    tweet_id: str
+    areas: List[str]
+    outage_type: OutageType
+    status: OutageStatus
+    cause: Optional[str] = None
+    tweet_text: str
+
+
 class OutageStats(BaseModel):
     total_outages: int
     total_restorations: int
