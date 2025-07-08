@@ -17,6 +17,7 @@ class OutageExtractor:
         # Try to load spacy model, fallback to basic processing if not available
         try:
             self.nlp = spacy.load("en_core_web_sm")
+            self.logger.info("☑️ spaCy model loaded.")
         except OSError:
             self.logger.warning("spaCy model not found. Using basic text processing.")
             self.nlp = None
