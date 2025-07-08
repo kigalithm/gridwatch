@@ -7,10 +7,14 @@ class Settings(BaseSettings):
     API_VERSION_STR: str = "/api/v1"
     DEBUG: bool = False
     ENV: str = "production"
+    API_BASE_URL: str
 
     DATABASE_URL: str
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24
     CORS_ORIGINS: List[str] = ["*"]
+
+    TWITTER_API_LIMIT: int
+    COOLDOWN_SECONDS: int
 
     class Config:
         env_file = ".env"
