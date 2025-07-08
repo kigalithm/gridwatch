@@ -1,7 +1,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, Session
 from sqlalchemy.ext.declarative import declarative_base
-from app.core.settings import Settings
+from app.core.config import Settings
 from sqlalchemy.pool import QueuePool
 
 settings = Settings()

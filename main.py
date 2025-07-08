@@ -2,7 +2,7 @@ import os
 import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.core.settings import Settings
+from app.core.config import Settings
 from app.routes import outage_routes, twitter_routes
 
 

@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, BackgroundTasks
 from sqlalchemy.orm import Session
 from app.db.session import get_db
-from app.core.settings import Settings
+from app.core.config import Settings
 from app.schema.outage_schema import (
     OutageCreate,
     OutageOut,
