@@ -33,7 +33,7 @@ app.include_router(
 
 
 app.include_router(
-    twitter_routes.outage_route,
+    twitter_routes.twitter_route,
     prefix=settings.API_VERSION_STR + "/twitter",
 )
 

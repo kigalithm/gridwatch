@@ -5,11 +5,22 @@ from app.twitter.twitter_client import TwitterClient
 from app.schema.outage_schema import (
     TwitterConfig,
 )
+from app.core.config import Settings
+
+settings = Settings()
 
 executor = ThreadPoolExecutor()
 
 
-twitter_client = TwitterClient(config=TwitterConfig)
+twitter_config = TwitterConfig(
+    bearer_token=settings.BEARER_TOKEN,
+    consumer_key=settings.CONSUMER_KEY,
+    consumer_secret=settings.CONSUMER_SECRET,
+    access_token=settings.ACCESS_TOKEN,
+    access_token_secret=settings.ACCESS_TOKEN_SECRET,
+)
+
+twitter_client = TwitterClient(config=twitter_config)
 
 
 # Load the pre-cached model
