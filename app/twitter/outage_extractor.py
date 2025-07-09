@@ -161,17 +161,31 @@ class OutageExtractor:
 
         return None
 
-    def process_tweet(self, tweet_text: str, tweet_id: str) -> Optional[Outage]:
-        """Process a tweet and extract outage information"""
+    def process_tweet(
+        self,
+        tweet_text: str,
+        tweet_id: str,
+        user_text: Optional[str] = None,
+    ) -> Optional[Outage]:
+        """Process a tweet and (optionally) the original user tweet to extract outage info."""
+
+        # 🔍 Try to extract location from REG's tweet first
         locations = self.extract_locations(tweet_text)
+
+        # 🪂 Fallback: Try user's tweet if REG's tweet has no location
+        if not locations and user_text:
+            locations = self.extract_locations(user_text)
+
         if not locations:
-            return None
+            return None  # Still nothing, skip this tweet
 
-        outage_type, confidence = self.classify_outage_type(tweet_text)
-        cause = self.extract_cause(tweet_text)
-        duration = self.extract_duration(tweet_text)
+        # 🧠 Use full context (REG + user) to classify and extract details
+        combined_text = f"{tweet_text}\n{user_text}" if user_text else tweet_text
 
-        # Determine status based on type
+        outage_type, confidence = self.classify_outage_type(combined_text)
+        cause = self.extract_cause(combined_text)
+        duration = self.extract_duration(combined_text)
+
         if outage_type == OutageType.RESTORATION:
             status = OutageStatus.RESOLVED
         elif outage_type == OutageType.MAINTENANCE:
@@ -179,8 +193,7 @@ class OutageExtractor:
         else:
             status = OutageStatus.ACTIVE
 
-        # Use the first location found (could be improved to handle multiple)
-        area = locations[0]
+        area = locations[0]  # TODO: Support multiple later
 
         return Outage(
             tweet_id=tweet_id,
@@ -190,6 +203,6 @@ class OutageExtractor:
             timestamp=datetime.now(),
             estimated_duration=duration,
             cause=cause,
-            tweet_text=tweet_text,
+            tweet_text=combined_text.strip(),
             confidence=confidence,
         )
