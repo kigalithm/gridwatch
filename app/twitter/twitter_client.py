@@ -56,38 +56,44 @@ class TwitterClient:
             )
 
             tweets = response.data or []
-            referenced = {t.id: t for t in (response.includes.get("tweets") or [])}
+            if tweets:
+                self._set_last_processed_id("last_fetched_id.txt", tweets[0].id)
+                referenced = {t.id: t for t in (response.includes.get("tweets") or [])}
 
-            formatted = []
-            for tweet in tweets:
-                original_tweet = referenced.get(tweet.in_reply_to_status_id)
-
-                formatted.append(
-                    {
-                        "id": tweet.id,
-                        "text": tweet.text,
-                        "created_at": (
-                            tweet.created_at.isoformat() if tweet.created_at else None
-                        ),
-                        "is_reply": tweet.in_reply_to_status_id is not None,
-                        "in_reply_to_status_id": tweet.in_reply_to_status_id,
-                        "original_user_text": (
-                            original_tweet.text if original_tweet else None
-                        ),
-                        "metrics": {
-                            "retweet_count": tweet.public_metrics.get(
-                                "retweet_count", 0
+                formatted = []
+                for tweet in tweets:
+                    original_tweet = referenced.get(tweet.in_reply_to_status_id)
+                    formatted.append(
+                        {
+                            "id": tweet.id,
+                            "text": tweet.text,
+                            "created_at": (
+                                tweet.created_at.isoformat()
+                                if tweet.created_at
+                                else None
                             ),
-                            "like_count": tweet.public_metrics.get("like_count", 0),
-                            "reply_count": tweet.public_metrics.get("reply_count", 0),
-                            "quote_count": tweet.public_metrics.get("quote_count", 0),
-                        },
-                        "fetched_at": datetime.now().isoformat(),
-                    }
-                )
-
-            self._save_tweets_to_json(formatted, reg_username)
-            return formatted
+                            "is_reply": tweet.in_reply_to_status_id is not None,
+                            "in_reply_to_status_id": tweet.in_reply_to_status_id,
+                            "original_user_text": (
+                                original_tweet.text if original_tweet else None
+                            ),
+                            "metrics": {
+                                "retweet_count": tweet.public_metrics.get(
+                                    "retweet_count", 0
+                                ),
+                                "like_count": tweet.public_metrics.get("like_count", 0),
+                                "reply_count": tweet.public_metrics.get(
+                                    "reply_count", 0
+                                ),
+                                "quote_count": tweet.public_metrics.get(
+                                    "quote_count", 0
+                                ),
+                            },
+                            "fetched_at": datetime.now().isoformat(),
+                        }
+                    )
+                self._save_tweets_to_json(formatted, reg_username)
+                return formatted
 
         except Exception as e:
             logger.error(f"Error fetching tweets: {e}")
