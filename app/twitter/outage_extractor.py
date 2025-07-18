@@ -14,7 +14,6 @@ from app.schema.outage_schema import (
 class OutageExtractor:
     def __init__(self):
         self.logger = logging.getLogger(__name__)
-        # Try to load spacy model, fallback to basic processing if not available
         try:
             self.nlp = spacy.load("en_core_web_sm")
             self.logger.info("☑️ spaCy model loaded.")
@@ -113,7 +112,6 @@ class OutageExtractor:
                     location_clean = ent.text.lower().strip()
                     if location_clean not in [loc.lower() for loc in found_locations]:
                         found_locations.append(ent.text.title())
-
         return found_locations
 
     def classify_outage_type(self, text: str) -> tuple[OutageType, float]:
