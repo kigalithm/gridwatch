@@ -1,35 +1,48 @@
 import uuid
-from sqlalchemy import Column, String, ARRAY, Float, Enum as SqlEnum
+from sqlalchemy import Column, String, ARRAY, ForeignKey, Float, Enum as SqlEnum
 from sqlalchemy.dialects.postgresql import UUID
 from pgvector.sqlalchemy import Vector
-from sqlalchemy.orm import relationship
-from app.db.session import Base
 from sqlalchemy import DateTime
 from datetime import datetime, timezone
 from app.schema.outage_schema import OutageType, OutageStatus
+from geoalchemy2 import Geometry
+from sqlalchemy.orm import relationship
+from app.db.models.base_model import BaseModel
 
 
-class Outage:
+class Outage(BaseModel):
     __tablename__ = "outages"
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     tweet_id = Column(String, nullable=False)
-    areas = Column(ARRAY(String), nullable=False)
-    outage_type = Column(SqlEnum(OutageType), nullable=False)
-    status = Column(SqlEnum(OutageStatus), nullable=False)
-    timestamp = Column(DateTime(timezone=True), nullable=False)
-    estimated_duration = Column(String, nullable=True)
-    cause = Column(String, nullable=True)
     tweet_text = Column(String, nullable=False)
-    confidence = Column(Float, nullable=False)
+    areas = Column(ARRAY(String), nullable=False)
+    location_confidence = Column(Float, default=0.0)
+
+    # status tracking
+    status = Column(SqlEnum(OutageStatus), nullable=False)
+    outage_type = Column(SqlEnum(OutageType), nullable=False)
+
+    # Temporal info
+    reported_at = Column(DateTime(timezone=True), nullable=False)
+    estimated_start = Column(String, nullable=True)
+    estimated_end = Column(DateTime(timezone=True))
+    resolved_at = Column(DateTime(timezone=True), nullable=True)
+
+    cause = Column(String, nullable=True)
+
+    # Geographical info
+    coordinates = Column(ARRAY(Geometry("POINT", srid=4326)), nullable=True)
+    affected_areas = Column(ARRAY(Geometry("POLYGON")), nullable=True)
+
     embedding = Column(Vector(384), nullable=False)
-    created_at = Column(
-        DateTime(timezone=True),
-        default=datetime.now(timezone.utc),
-        nullable=True,
-    )
-    updated_at = Column(
-        DateTime(timezone=True),
-        default=datetime.now(timezone.utc),
-        onupdate=datetime.now(timezone.utc),
-        nullable=True,
-    )
+
+    source_type = Column(String)
+    source_credibility = Column(Float, default=0.5)
+    author_id = Column(String)
+
+    # Relationships
+    location_id = Column(UUID(as_uuid=True), ForeignKey("locations.id"))
+    location = relationship("Location", back_populates="outages")
+
+    def __repr__(self):
+        return f"<Outage(id={self.id}, location={self.location_name}, status={self.status})>"
