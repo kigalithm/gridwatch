@@ -3,7 +3,6 @@ from sqlalchemy import Column, String, ARRAY, ForeignKey, Float, Enum as SqlEnum
 from sqlalchemy.dialects.postgresql import UUID
 from pgvector.sqlalchemy import Vector
 from sqlalchemy import DateTime
-from datetime import datetime, timezone
 from app.schema.outage_schema import OutageType, OutageStatus
 from geoalchemy2 import Geometry
 from sqlalchemy.orm import relationship

@@ -37,7 +37,7 @@ class Location(BaseModel):
     source = Column(String)  # osm, geonames, nisr, custom
     source_id = Column(String)  # Original ID from source
 
-    metadata = Column(JSONB, nullable=True)
+    location_metadata = Column(JSONB, nullable=True)
 
     # Relationships
     outages = relationship("Outage", back_populates="location")
