@@ -9,7 +9,6 @@ from app.db.models.base_model import BaseModel
 class Location(BaseModel):
     __tablename__ = "locations"
 
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     name = Column(String, nullable=False, index=True)
     level = Column(String)
 

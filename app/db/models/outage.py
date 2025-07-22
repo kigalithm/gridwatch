@@ -11,7 +11,6 @@ from app.db.models.base_model import BaseModel
 
 class Outage(BaseModel):
     __tablename__ = "outages"
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     tweet_id = Column(String, nullable=False)
     tweet_text = Column(String, nullable=False)
     areas = Column(ARRAY(String), nullable=False)
