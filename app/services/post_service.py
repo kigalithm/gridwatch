@@ -50,7 +50,7 @@ class PostService:
         tweets = []
         for tweet_data in posts_data:
             # Skip if tweet already exists
-            existing = self.get_tweet_by_id(tweet_data["tweet_id"])
+            existing = self.get_post_by_id(tweet_data["tweet_id"])
             if not existing:
                 tweet = Post(**tweet_data)
                 tweets.append(tweet)
