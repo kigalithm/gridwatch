@@ -2,6 +2,7 @@ from sqlalchemy.orm import Session
 from sqlalchemy import func, or_
 from app.db.models.location import Location
 from typing import List, Optional, Dict, Tuple
+from fuzzywuzzy import fuzz
 
 
 class LocationService:
