@@ -1,8 +1,8 @@
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
 import logging
-from app.db.models.outage import Outage
-from app.schema.outage_schema import OutageCreate
+from app.reg.models.outage import Outage
+from app.reg.schema.outage_schema import OutageCreate
 from sqlalchemy.exc import SQLAlchemyError
 from app.dependencies import get_sync_embedding
 

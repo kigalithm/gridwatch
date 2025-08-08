@@ -1,8 +1,8 @@
 import asyncio, os
 from concurrent.futures import ThreadPoolExecutor
 from sentence_transformers import SentenceTransformer
-from app.twitter.twitter_client import TwitterClient
-from app.schema.outage_schema import (
+from app.reg.twitter.twitter_client import TwitterClient
+from app.reg.schema.outage_schema import (
     TwitterConfig,
 )
 from app.core.config import Settings

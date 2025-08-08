@@ -4,7 +4,7 @@ import spacy
 from datetime import datetime
 from typing import List, Optional
 
-from app.schema.outage_schema import (
+from app.reg.schema.outage_schema import (
     Outage,
     OutageStatus,
     OutageType,
