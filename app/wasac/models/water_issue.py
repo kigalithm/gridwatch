@@ -1,4 +1,3 @@
-import uuid
 from sqlalchemy import Column, String, ARRAY, Enum, Boolean
 from sqlalchemy.dialects.postgresql import JSON
 from app.db.base_model import BaseModel
@@ -21,7 +20,7 @@ class WaterIssue(BaseModel):
     embedding = Column(Vector(384), nullable=False)
     image_url = Column(String, nullable=True)
     is_resolved = Column(Boolean, default=False)
-    location = Column(String, nullable=True)
+    location = Column(JSON, nullable=True)
     issue_type = Column(Enum(IssueType), default=IssueType.WATER_CUT, nullable=False)
 
     coordinates = Column(ARRAY(Geometry("POINT", srid=4326)), nullable=True)
