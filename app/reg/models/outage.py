@@ -3,10 +3,10 @@ from sqlalchemy import Column, String, ARRAY, ForeignKey, Float, Enum as SqlEnum
 from sqlalchemy.dialects.postgresql import UUID
 from pgvector.sqlalchemy import Vector
 from sqlalchemy import DateTime
-from app.schema.outage_schema import OutageType, OutageStatus
+from app.reg.schema.outage_schema import OutageType, OutageStatus
 from geoalchemy2 import Geometry
 from sqlalchemy.orm import relationship
-from app.db.models.base_model import BaseModel
+from app.db.base_model import BaseModel
 
 
 class Outage(BaseModel):

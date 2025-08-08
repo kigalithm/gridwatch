@@ -1,10 +1,10 @@
-from app.schema.outage_schema import TwitterConfig
+from app.reg.schema.outage_schema import TwitterConfig
 from typing import List, Dict
 from fastapi import HTTPException
 import tweepy
 import logging
-from app.twitter.outage_extractor import OutageExtractor
-from app.schema.outage_schema import Outage
+from app.reg.twitter.outage_extractor import OutageExtractor
+from app.reg.schema.outage_schema import Outage
 from app.core.config import Settings
 import json, os
 from datetime import datetime
