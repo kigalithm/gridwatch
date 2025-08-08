@@ -1,5 +1,5 @@
-from app.twitter.twitter_client import TwitterClient
-from app.schema.outage_schema import (
+from app.reg.twitter.twitter_client import TwitterClient
+from app.reg.schema.outage_schema import (
     TwitterConfig,
 )
 from fastapi import APIRouter, HTTPException

@@ -6,7 +6,7 @@ from app.core.config import Settings
 from app.reg.schema.power_issue_schema import (
     PowerIssueCreate,
     PowerIssueOut,
-    powerIssueUpdate,
+    PowerIssueUpdate,
 )
 
 

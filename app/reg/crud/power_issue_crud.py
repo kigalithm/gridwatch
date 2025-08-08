@@ -2,7 +2,6 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app.reg.models.power_issue import PowerIssue
 from app.reg.schema.power_issue_schema import PowerIssueCreate, PowerIssueUpdate
-from app.db.db_manager import get_db
 
 
 def create_power_issue(issue: PowerIssueCreate, db: Session):

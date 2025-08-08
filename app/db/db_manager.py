@@ -1,8 +1,8 @@
 from sqlalchemy.orm import Session
 from db.session import get_db
-from app.services.outage_service import OutageService
-from app.services.location_service import LocationService
-from app.services.post_service import PostService
+from app.reg.services.outage_service import OutageService
+from app.reg.services.location_service import LocationService
+from app.reg.services.post_service import PostService
 
 
 class DatabaseManager:
