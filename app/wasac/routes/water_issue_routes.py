@@ -18,7 +18,7 @@ water_issue_route = APIRouter(tags=["WaterIssue"])
 @water_issue_route.post("/create", response_model=WaterIssueOut, status_code=201)
 def create_water_issue(issue: WaterIssueCreate, db: Session = Depends(get_db)):
     """Create or update outage"""
-    return crud_water.create_outage(issue, db)
+    return crud_water.create_water_issue(issue, db)
 
 
 @water_issue_route.get("/all", response_model=list[WaterIssueOut])
