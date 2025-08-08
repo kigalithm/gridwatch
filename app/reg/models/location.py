@@ -3,7 +3,7 @@ from sqlalchemy import Column, String, Float, Integer, Index, UUID
 from sqlalchemy.orm import relationship
 from sqlalchemy.dialects.postgresql import JSONB
 from geoalchemy2 import Geometry
-from app.db.models.base_model import BaseModel
+from app.db.base_model import BaseModel
 
 
 class Location(BaseModel):
