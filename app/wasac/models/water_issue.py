@@ -1,9 +1,10 @@
 import uuid
-from sqlalchemy import Column, String, Float, Text, Enum, DateTime, Boolean
-from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy import Column, String, ARRAY, Enum, Boolean
+from sqlalchemy.dialects.postgresql import JSON
 from app.db.base_model import BaseModel
 from pgvector.sqlalchemy import Vector
 from enum import Enum as PyEnum
+from geoalchemy2 import Geometry
 
 
 class IssueType(str, PyEnum):
@@ -21,4 +22,8 @@ class WaterIssue(BaseModel):
     image_url = Column(String, nullable=True)
     is_resolved = Column(Boolean, default=False)
     location = Column(String, nullable=True)
-    issue_type = Column(Enum(IssueType), nullable=False)
+    issue_type = Column(Enum(IssueType), default=IssueType.WATER_CUT, nullable=False)
+
+    coordinates = Column(ARRAY(Geometry("POINT", srid=4326)), nullable=True)
+    affected_areas = Column(ARRAY(Geometry("POLYGON")), nullable=True)
+    affeccted_area_names = Column(ARRAY(String), nullable=True)

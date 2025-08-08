@@ -1,4 +1,3 @@
-import uuid
 from sqlalchemy import Column, String, ARRAY, ForeignKey, Float, Enum as SqlEnum
 from sqlalchemy.dialects.postgresql import UUID
 from pgvector.sqlalchemy import Vector
