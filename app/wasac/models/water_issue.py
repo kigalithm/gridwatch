@@ -7,4 +7,4 @@ from app.db.base_model import BaseModel
 
 
 class WaterIssue(BaseModel):
-    pass
+    __tablename__ = "water_issues"
