@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, ARRAY, Enum, Boolean
+from sqlalchemy import Column, String, ARRAY, Enum, Boolean, Float
 from sqlalchemy.dialects.postgresql import JSON
 from app.db.base_model import BaseModel
 from pgvector.sqlalchemy import Vector
@@ -22,7 +22,8 @@ class WaterIssue(BaseModel):
     is_resolved = Column(Boolean, default=False)
     location = Column(JSON, nullable=True)
     issue_type = Column(Enum(IssueType), default=IssueType.WATER_CUT, nullable=False)
+    approx_lat = Column(Float, nullable=True)
+    approx_long = Column(Float, nullable=True)
 
-    coordinates = Column(ARRAY(Geometry("POINT", srid=4326)), nullable=True)
     affected_areas = Column(ARRAY(Geometry("POLYGON")), nullable=True)
     affeccted_area_names = Column(ARRAY(String), nullable=True)

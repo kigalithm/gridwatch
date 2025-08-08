@@ -16,7 +16,7 @@ class WaterIssueCreate(BaseModel):
 
 class WaterIssueUpdate(BaseModel):
     audio_description: str
-    location: LocationSchema
+    location: Optional[LocationSchema] = None
     coordinates: list
     affected_areas: list
     affeccted_area_names: list
