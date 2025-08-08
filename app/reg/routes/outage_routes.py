@@ -2,11 +2,11 @@ from fastapi import APIRouter, Depends, HTTPException, BackgroundTasks
 from sqlalchemy.orm import Session
 from app.db.session import get_db
 from app.core.config import Settings
-from app.schema.outage_schema import (
+from app.reg.schema.outage_schema import (
     OutageCreate,
     OutageOut,
 )
-from app.crud import outage_crud as crud_outage
+from app.reg.crud import outage_crud as crud_outage
 from app.dependencies import twitter_client
 
 
